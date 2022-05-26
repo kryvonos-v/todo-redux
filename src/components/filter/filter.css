@@ -1,0 +1,23 @@
+.filter {
+  margin: 0.5rem 0;
+}
+
+.filter-items {
+  display: inline-flex;
+}
+
+.filter-items > * {
+  margin-right: 0.25em;
+}
+
+.filter-items :last-child {
+  margin-right: 0;
+}
+
+.filter-link {
+  text-decoration: underline;
+}
+
+.filter-link.active {
+  text-decoration: none;
+}

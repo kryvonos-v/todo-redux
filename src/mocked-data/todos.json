@@ -1,0 +1,25 @@
+[{
+  "id": "1490c287-bdda-43a0-9a2d-c2b56bbf33ed",
+  "text": "Buy groceris",
+  "completed": true
+}, {
+  "id": "b230eb0b-e4fb-44ab-a9cc-184fe5ebde69",
+  "text": "Call my mom",
+  "completed": false
+}, {
+  "id": "7f9b3596-9857-4a8d-8307-b3ef8e62ed3a",
+  "text": "Clean up apartments",
+  "completed": true
+}, {
+  "id": "5700e6cb-f308-4b7a-9373-a97f4b291dab",
+  "text": "Plan next day",
+  "completed": false
+}, {
+  "id": "e201529a-0d38-41c5-b63d-47cee52bf8b5",
+  "text": "Prepare meals for next 4 days",
+  "completed": false
+}, {
+  "id": "9401950d-e0cf-400c-ad5a-dd4d24beedae",
+  "text": "Plan my rest",
+  "completed": false
+}]
