@@ -2,6 +2,7 @@ export default function byId(state = {}, action) {
   switch (action.type) {
     case 'FETCH_TODOS_SUCCESS':
     case 'ADD_TODO':
+    case 'TOGGLE_TODO':
       return {
         ...state,
         ...action.data.entities.todos

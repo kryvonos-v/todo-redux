@@ -13,6 +13,19 @@ export default function ids(filter) {
           ? [...state, action.data.result]
           : state;
 
+      case 'TOGGLE_TODO':
+        const id = action.data.result;
+        const todo = action.data.entities.todos[id];
+
+        const shouldRemove = (
+          (filter === 'active' && todo.completed) ||
+          (filter === 'completed' && !todo.completed)
+        );
+
+        return shouldRemove
+          ? state.filter(item => item !== id)
+          : state;
+
       default:
         return state;
     }

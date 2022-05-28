@@ -29,18 +29,17 @@ export const fetchTodos = (filter) => async (dispatch, state) => {
   }
 };
 
-export const addTodo = (text) => (dispatch) => (
-  api.addTodo(text).then(todo => {
-    dispatch({
-      type: 'ADD_TODO',
-      data: normalize(todo, schema.todo)
-    });
-  }))
+export const addTodo = (text) => (dispatch) =>
+  api.addTodo(text).then(todo => dispatch({
+    type: 'ADD_TODO',
+    data: normalize(todo, schema.todo)
+  }));
 
-export const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id
-});
+export const toggleTodo = (id) => (dispatch) =>
+  api.toggleTodo(id).then(data => dispatch({
+    type: 'TOGGLE_TODO',
+    data: normalize(data, schema.todo)
+  }));
 
 export const removeTodo = (id) => ({
   type: 'REMOVE_TODO',
