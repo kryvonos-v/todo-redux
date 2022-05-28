@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { TodoList } from '../../components/todo-list/todo-list';
 import { withRouter } from '../../router/with-router';
-import { toggleTodo, fetchTodos } from '../../store/reducers/todos/todos';
+import { toggleTodo, fetchTodos } from '../../store/reducers/todos/todos.actions';
 import { getVisibleTodos, getIsFetching } from '../../store/reducers';
 
 class VisibleTodoListController extends Component {

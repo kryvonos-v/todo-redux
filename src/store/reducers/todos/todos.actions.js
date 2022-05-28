@@ -1,4 +1,5 @@
 import { v4 } from 'uuid';
+import { getIsFetching } from '../';
 import * as api from '../../../api/api';
 
 const requestTodos = filter => ({
@@ -12,9 +13,12 @@ const receiveTodos = (filter, data) => ({
   data
 });
 
-export const fetchTodos = filter => async dispatch => {
-  dispatch(requestTodos(filter));
+export const fetchTodos = filter => async (dispatch, state) => {
+  if (getIsFetching(state, filter)) {
+    return;
+  }
 
+  dispatch(requestTodos(filter));
   const data = await api.fetchTodos(filter);
   dispatch(receiveTodos(filter, data));
 };

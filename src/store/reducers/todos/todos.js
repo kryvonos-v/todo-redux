@@ -1,7 +1,6 @@
 import { combineReducers } from 'redux';
 import byId, { getTodo } from './by-id';
 import ids, * as fromIds from './ids';
-export * from './todos.actions';
 
 export default combineReducers({
   byId,
