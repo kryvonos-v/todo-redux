@@ -9,17 +9,24 @@ export const fetchTodos = (filter) => async (dispatch, state) => {
   }
 
   dispatch({
-    type: 'REQUEST_TODOS',
+    type: 'FETCH_TODOS_REQUEST',
     filter
   });
 
-  const data = await api.fetchTodos(filter);
-
-  dispatch({
-    type: 'RECEIVE_TODOS',
-    filter,
-    data: normalize(data, schema.todoList)
-  });
+  try {
+    const data = await api.fetchTodos(filter);
+    dispatch({
+      type: 'FETCH_TODOS_SUCCESS',
+      filter,
+      data: normalize(data, schema.todoList)
+    });
+  } catch (error) {
+    dispatch({
+      type: 'FETCH_TODOS_FAILURE',
+      filter,
+      errorMessage: error.message
+    })
+  }
 };
 
 export const addTodo = (text) => (dispatch) => (

@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 export default function ids(filter) {
   function list(state = [], action) {
     switch (action.type) {
-      case 'RECEIVE_TODOS':
+      case 'FETCH_TODOS_SUCCESS':
         return (filter === action.filter)
           ? action.data.result
           : state;
@@ -24,11 +24,29 @@ export default function ids(filter) {
     }
 
     switch (action.type) {
-      case 'REQUEST_TODOS':
+      case 'FETCH_TODOS_REQUEST':
         return true;
       
-      case 'RECEIVE_TODOS':
+      case 'FETCH_TODOS_SUCCESS':
+      case 'FETCH_TODOS_FAILURE':
         return false;
+
+      default:
+        return state;
+    }
+  }
+
+  function errorMessage(state = '', action) {
+    if (filter !== action.filter) {
+      return state;
+    }
+
+    switch (action.type) {
+      case 'FETCH_TODOS_REQUEST':
+        return '';
+
+      case 'FETCH_TODOS_FAILURE':
+        return action.errorMessage;
 
       default:
         return state;
@@ -37,9 +55,11 @@ export default function ids(filter) {
 
   return combineReducers({
     list,
-    isFetching
+    isFetching,
+    errorMessage
   });
 }
 
 export const getIds = state => state.list;
 export const getIsFetching = state => state.isFetching;
+export const getErrorMessage = state => state.errorMessage;

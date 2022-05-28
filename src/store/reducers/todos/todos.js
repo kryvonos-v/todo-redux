@@ -19,3 +19,7 @@ export function getVisibleTodos(state, filter) {
 export function getIsFetching(state, filter) {
   return fromIds.getIsFetching(state.ids[filter]);
 }
+
+export function getErrorMessage(state, filter) {
+  return fromIds.getErrorMessage(state.ids[filter]);
+}
