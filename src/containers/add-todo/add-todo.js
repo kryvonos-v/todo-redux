@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { TodoForm } from '../../components/todo-form/todo-form';
-import { addTodo } from '../../store/modules/todos/todos.actions';
+import { addTodo } from '../../store/reducers/todos/todos.actions';
 
 export const AddTodo = connect(
   null,

@@ -3,11 +3,16 @@ import * as api from '../../../api/api';
 
 export const fetchTodos = filter => (
   api.fetchTodos(filter).then(data => ({
-    type: 'FETCH_TODOS',
+    type: 'RECEIVE_TODOS',
     filter,
     data
   }))
 );
+
+export const requestTodos = filter => ({
+  type: 'REQUEST_TODOS',
+  filter
+});
 
 export const addTodo = (text) => ({
   type: 'ADD_TODO',

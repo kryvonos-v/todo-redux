@@ -13,7 +13,7 @@ export function fetchTodos(filter) {
       case 'completed':
         return todos.filter(item => item.completed);
 
-      case 'incompleted':
+      case 'active':
         return todos.filter(item => !item.completed);
 
       default:

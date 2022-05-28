@@ -1,12 +1,8 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux';
-import todos, * as fromTodos from './modules/todos/todos';
+import { applyMiddleware, createStore } from 'redux';
 import { logger, promise } from './middlewares';
+import reducers from './reducers';
 
 const LOGGER_ENABLED = true;
-
-const reducers = combineReducers({
-  todos
-});
 
 export function configureStore() {
   const middlewares = [promise];
@@ -20,5 +16,3 @@ export function configureStore() {
     applyMiddleware(...middlewares)
   );
 }
-
-export const getVisibleTodos = (state, filter) => fromTodos.getVisibleTodos(state.todos, filter);

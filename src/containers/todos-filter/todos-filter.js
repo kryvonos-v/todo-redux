@@ -12,7 +12,7 @@ const filters = [
     label: 'Done'
   },
   {
-    value: 'incompleted',
+    value: 'active',
     label: 'Active'
   }
 ];

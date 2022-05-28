@@ -2,16 +2,22 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { TodoList } from '../../components/todo-list/todo-list';
 import { withRouter } from '../../router/with-router';
-import { toggleTodo, fetchTodos } from '../../store/modules/todos/todos';
-import { getVisibleTodos } from '../../store/store';
+import { toggleTodo, fetchTodos, requestTodos } from '../../store/reducers/todos/todos';
+import { getVisibleTodos, getIsFetching } from '../../store/reducers';
 
 class VisibleTodoListController extends Component {
   render() {
-    const { toggleTodo, ...props } = this.props;
+    const { isFetching, todos, toggleTodo } = this.props;
+
+    if (isFetching && !todos.length) {
+      return (
+        <p>Loading...</p>
+      );
+    }
 
     return (
       <TodoList
-        {...props}
+        items={todos}
         onTodoClick={item => toggleTodo(item.id)}
       />
     );
@@ -28,7 +34,8 @@ class VisibleTodoListController extends Component {
   }
   
   fetchData() {
-    const { filter, fetchTodos } = this.props;
+    const { filter, requestTodos, fetchTodos } = this.props;
+    requestTodos(filter);
     return fetchTodos(filter);
   }
 }
@@ -38,12 +45,14 @@ export const VisibleTodoList = withRouter(connect(
     const filter = params.filter || 'all';
 
     return {
-      items: getVisibleTodos(state, filter),
+      todos: getVisibleTodos(state, filter),
+      isFetching: getIsFetching(state, filter),
       filter
     };
   },
   {
     toggleTodo,
-    fetchTodos
+    fetchTodos,
+    requestTodos
   }
 )(VisibleTodoListController));
