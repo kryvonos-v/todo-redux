@@ -1,4 +1,5 @@
 import { logger } from './logger';
 import { promise } from './promise';
+import { thunk } from './thunk';
 
-export { logger, promise };
+export { logger, promise, thunk };
