@@ -4,23 +4,22 @@ import { TodoList } from '../../components/todo-list/todo-list';
 import { withRouter } from '../../router/with-router';
 import { toggleTodo, fetchTodos } from '../../store/reducers/todos/todos.actions';
 import { getVisibleTodos, getIsFetching, getErrorMessage } from '../../store/reducers';
+import { FetchError } from '../../components/fetch-error/fetch-error';
 
 class VisibleTodoListController extends Component {
   render() {
     const { isFetching, errorMessage, todos, toggleTodo } = this.props;
 
-    if (errorMessage) {
-      return (
-        <div>
-          <p>{ errorMessage }</p>
-          <button onClick={() => this.fetchData()}>Retry</button>
-        </div>
-      );
-    }
-
     if (isFetching && !todos.length) {
       return (
         <p>Loading...</p>
+      );
+    } else if (errorMessage) {
+      return (
+        <FetchError
+          message={errorMessage}
+          retry={() => this.fetchData()}
+        />
       );
     }
 
