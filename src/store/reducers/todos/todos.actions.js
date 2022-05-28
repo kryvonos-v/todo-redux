@@ -1,5 +1,7 @@
 import { getIsFetching } from '../';
+import { normalize } from 'normalizr';
 import * as api from '../../../api/api';
+import * as schema from '../../../schema/todo';
 
 export const fetchTodos = (filter) => async (dispatch, state) => {
   if (getIsFetching(state, filter)) {
@@ -16,15 +18,17 @@ export const fetchTodos = (filter) => async (dispatch, state) => {
   dispatch({
     type: 'RECEIVE_TODOS',
     filter,
-    data
+    data: normalize(data, schema.todoList)
   });
 };
 
 export const addTodo = (text) => (dispatch) => (
-  api.addTodo(text).then(todo => dispatch({
-    type: 'ADD_TODO',
-    ...todo
-  })));
+  api.addTodo(text).then(todo => {
+    dispatch({
+      type: 'ADD_TODO',
+      data: normalize(todo, schema.todo)
+    });
+  }))
 
 export const toggleTodo = (id) => ({
   type: 'TOGGLE_TODO',

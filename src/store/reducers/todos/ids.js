@@ -5,12 +5,12 @@ export default function ids(filter) {
     switch (action.type) {
       case 'RECEIVE_TODOS':
         return (filter === action.filter)
-          ? action.data.map(item => item.id)
+          ? action.data.result
           : state;
 
       case 'ADD_TODO':
         return (filter !== 'completed')
-          ? [...state, action.id]
+          ? [...state, action.data.result]
           : state;
 
       default:
