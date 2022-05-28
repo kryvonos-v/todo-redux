@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { TodoList } from '../../components/todo-list/todo-list';
 import { withRouter } from '../../router/with-router';
-import { toggleTodo, fetchTodos, requestTodos } from '../../store/reducers/todos/todos';
+import { toggleTodo, fetchTodos } from '../../store/reducers/todos/todos';
 import { getVisibleTodos, getIsFetching } from '../../store/reducers';
 
 class VisibleTodoListController extends Component {
@@ -34,8 +34,7 @@ class VisibleTodoListController extends Component {
   }
   
   fetchData() {
-    const { filter, requestTodos, fetchTodos } = this.props;
-    requestTodos(filter);
+    const { filter, fetchTodos } = this.props;
     return fetchTodos(filter);
   }
 }
@@ -52,7 +51,6 @@ export const VisibleTodoList = withRouter(connect(
   },
   {
     toggleTodo,
-    fetchTodos,
-    requestTodos
+    fetchTodos
   }
 )(VisibleTodoListController));

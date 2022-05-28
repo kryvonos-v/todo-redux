@@ -1,18 +1,23 @@
 import { v4 } from 'uuid';
 import * as api from '../../../api/api';
 
-export const fetchTodos = filter => (
-  api.fetchTodos(filter).then(data => ({
-    type: 'RECEIVE_TODOS',
-    filter,
-    data
-  }))
-);
-
-export const requestTodos = filter => ({
+const requestTodos = filter => ({
   type: 'REQUEST_TODOS',
   filter
 });
+
+const receiveTodos = (filter, data) => ({
+  type: 'RECEIVE_TODOS',
+  filter,
+  data
+});
+
+export const fetchTodos = filter => async dispatch => {
+  dispatch(requestTodos(filter));
+
+  const data = await api.fetchTodos(filter);
+  dispatch(receiveTodos(filter, data));
+};
 
 export const addTodo = (text) => ({
   type: 'ADD_TODO',
