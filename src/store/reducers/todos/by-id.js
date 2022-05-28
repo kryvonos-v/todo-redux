@@ -8,6 +8,14 @@ export default function byId(state = {}, action) {
         ...idsMap(action.data)
       };
 
+    case 'ADD_TODO':
+      const { type, ...todo } = action;
+
+      return {
+        ...state,
+        [todo.id]: todo
+      };
+
     default:
       return state;
   }

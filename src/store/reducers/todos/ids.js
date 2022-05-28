@@ -2,13 +2,16 @@ import { combineReducers } from "redux";
 
 export default function ids(filter) {
   function list(state = [], action) {
-    if (filter !== action.filter) {
-      return state;
-    }
-
     switch (action.type) {
       case 'RECEIVE_TODOS':
-        return action.data.map(item => item.id);
+        return (filter === action.filter)
+          ? action.data.map(item => item.id)
+          : state;
+
+      case 'ADD_TODO':
+        return (filter !== 'completed')
+          ? [...state, action.id]
+          : state;
 
       default:
         return state;

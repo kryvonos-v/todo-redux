@@ -1,33 +1,30 @@
-import { v4 } from 'uuid';
 import { getIsFetching } from '../';
 import * as api from '../../../api/api';
 
-const requestTodos = filter => ({
-  type: 'REQUEST_TODOS',
-  filter
-});
-
-const receiveTodos = (filter, data) => ({
-  type: 'RECEIVE_TODOS',
-  filter,
-  data
-});
-
-export const fetchTodos = filter => async (dispatch, state) => {
+export const fetchTodos = (filter) => async (dispatch, state) => {
   if (getIsFetching(state, filter)) {
     return;
   }
 
-  dispatch(requestTodos(filter));
+  dispatch({
+    type: 'REQUEST_TODOS',
+    filter
+  });
+
   const data = await api.fetchTodos(filter);
-  dispatch(receiveTodos(filter, data));
+
+  dispatch({
+    type: 'RECEIVE_TODOS',
+    filter,
+    data
+  });
 };
 
-export const addTodo = (text) => ({
-  type: 'ADD_TODO',
-  id: v4(),
-  text
-});
+export const addTodo = (text) => (dispatch) => (
+  api.addTodo(text).then(todo => dispatch({
+    type: 'ADD_TODO',
+    ...todo
+  })));
 
 export const toggleTodo = (id) => ({
   type: 'TOGGLE_TODO',
